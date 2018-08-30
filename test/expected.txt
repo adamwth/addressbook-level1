@@ -268,6 +268,39 @@
 || 
 || 2 persons found!
 || ===================================================
+|| Enter command: || [Command entered:  add Aaron Blake p/94564567 e/charliedick@gmail.com]
+|| New person added: Aaron Blake, Phone: 94564567, Email: charliedick@gmail.com
+|| ===================================================
+|| Enter command: || [Command entered:  sort name]
+|| Sorted by name
+|| ===================================================
+|| Enter command: || [Command entered:  list]
+|| 	1. Aaron Blake  Phone Number: 94564567  Email: charliedick@gmail.com
+|| 	2. Betsy Choo  Phone Number: 222222  Email: benchoo@nus.edu.sg
+|| 	3. Dickson Ee  Phone Number: 444444  Email: dickson@nus.edu.sg
+|| 
+|| 3 persons found!
+|| ===================================================
+|| Enter command: || [Command entered:  sort phone]
+|| Sorted by phone
+|| ===================================================
+|| Enter command: || [Command entered:  list]
+|| 	1. Betsy Choo  Phone Number: 222222  Email: benchoo@nus.edu.sg
+|| 	2. Dickson Ee  Phone Number: 444444  Email: dickson@nus.edu.sg
+|| 	3. Aaron Blake  Phone Number: 94564567  Email: charliedick@gmail.com
+|| 
+|| 3 persons found!
+|| ===================================================
+|| Enter command: || [Command entered:  sort email]
+|| Sorted by email
+|| ===================================================
+|| Enter command: || [Command entered:  list]
+|| 	1. Betsy Choo  Phone Number: 222222  Email: benchoo@nus.edu.sg
+|| 	2. Aaron Blake  Phone Number: 94564567  Email: charliedick@gmail.com
+|| 	3. Dickson Ee  Phone Number: 444444  Email: dickson@nus.edu.sg
+|| 
+|| 3 persons found!
+|| ===================================================
 || Enter command: || [Command entered:  clear]
 || Address book has been cleared!
 || ===================================================

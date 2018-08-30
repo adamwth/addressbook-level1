@@ -92,6 +92,25 @@
   list
 
 ##########################################################
+# test sort command
+##########################################################
+
+  # add another person for sorting
+  add Aaron Blake p/94564567 e/charliedick@gmail.com
+
+  # sorts by name
+  sort name
+  list
+
+  # sorts by phone
+  sort phone
+  list
+
+  # sorts by email
+  sort email
+  list
+
+##########################################################
 # test clear command
 ##########################################################
 
