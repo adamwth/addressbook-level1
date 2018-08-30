@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -133,6 +134,11 @@ public class AddressBook {
     private static final String COMMAND_EXIT_DESC = "Exits the program.";
     private static final String COMMAND_EXIT_EXAMPLE = COMMAND_EXIT_WORD;
 
+    private static final String COMMAND_SORT_WORD = "sort";
+    private static final String COMMAND_SORT_DESC = "Sorts the list of addresses by the category (name/phone/email)";
+    private static final String COMMAND_SORT_PARAMETER = "CATEGORY";
+    private static final String COMMAND_SORT_EXAMPLE = COMMAND_SORT_WORD + "name";
+
     private static final String DIVIDER = "===================================================";
 
 
@@ -144,6 +150,11 @@ public class AddressBook {
     private static final int PERSON_DATA_INDEX_NAME = 0;
     private static final int PERSON_DATA_INDEX_PHONE = 1;
     private static final int PERSON_DATA_INDEX_EMAIL = 2;
+
+    private static final String PERSON_PROPERTY_NAME = "name";
+    private static final String PERSON_PROPERTY_PHONE = "phone";
+    private static final String PERSON_PROPERTY_EMAIL = "email";
+
 
     /**
      * The number of data elements for a single person.
@@ -369,22 +380,24 @@ public class AddressBook {
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
         switch (commandType) {
-        case COMMAND_ADD_WORD:
-            return executeAddPerson(commandArgs);
-        case COMMAND_FIND_WORD:
-            return executeFindPersons(commandArgs);
-        case COMMAND_LIST_WORD:
-            return executeListAllPersonsInAddressBook();
-        case COMMAND_DELETE_WORD:
-            return executeDeletePerson(commandArgs);
-        case COMMAND_CLEAR_WORD:
-            return executeClearAddressBook();
-        case COMMAND_HELP_WORD:
-            return getUsageInfoForAllCommands();
-        case COMMAND_EXIT_WORD:
-            executeExitProgramRequest();
-        default:
-            return getMessageForInvalidCommandInput(commandType, getUsageInfoForAllCommands());
+            case COMMAND_ADD_WORD:
+                return executeAddPerson(commandArgs);
+            case COMMAND_FIND_WORD:
+                return executeFindPersons(commandArgs);
+            case COMMAND_LIST_WORD:
+                return executeListAllPersonsInAddressBook();
+            case COMMAND_DELETE_WORD:
+                return executeDeletePerson(commandArgs);
+            case COMMAND_CLEAR_WORD:
+                return executeClearAddressBook();
+            case COMMAND_HELP_WORD:
+                return getUsageInfoForAllCommands();
+            case COMMAND_EXIT_WORD:
+                executeExitProgramRequest();
+            case COMMAND_SORT_WORD:
+                return executeSort(commandArgs);
+            default:
+                return getMessageForInvalidCommandInput(commandType, getUsageInfoForAllCommands());
         }
     }
 
@@ -577,6 +590,33 @@ public class AddressBook {
         ArrayList<String[]> toBeDisplayed = getAllPersonsInAddressBook();
         showToUser(toBeDisplayed);
         return getMessageForPersonsDisplayedSummary(toBeDisplayed);
+    }
+
+    /**
+     * Sorts the address book by the category specified by the user.
+     * @return
+     */
+    private static String executeSort(String commandArgs) throws InvalidParameterException {
+        try {
+            ALL_PERSONS.sort((String[] person1, String[] person2) -> {
+                switch (commandArgs) {
+                    case "name":
+                        return person1[0].compareTo(person2[0]);
+                    case "phone":
+                        return person1[1].compareTo(person2[1]);
+                    case "email":
+                        return person1[2].compareTo(person2[2]);
+                    default:
+                        throw new InvalidParameterException(String.format("That is not a valid category to sort by. " +
+                            "Please enter only %s, %s, or %s.", PERSON_PROPERTY_NAME, PERSON_PROPERTY_PHONE,
+                            PERSON_PROPERTY_EMAIL));
+                }
+            });
+            return "sorted";
+        } catch (InvalidParameterException e) {
+            System.out.println(e.getMessage());
+            return "invalid sort category";
+        }
     }
 
     /**
